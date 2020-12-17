@@ -1,0 +1,37 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet author="viachaslau.barysau" id="20201207-1">
+        <addColumn catalogName="retailers"
+                   schemaName="public"
+                   tableName="bill">
+            <column name="customer_id"
+                    type="BIGINT"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="viachaslau.barysau" id="20201207-2">
+        <addColumn catalogName="retailers"
+                   schemaName="public"
+                   tableName="write_off_act">
+            <column name="customer_id"
+                    type="BIGINT"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="viachaslau.barysau" id="20201207-3">
+        <addForeignKeyConstraint baseColumnNames="customer_id"
+                                 baseTableName="bill"
+                                 constraintName="fk_bill_customer"
+                                 referencedColumnNames="id"
+                                 referencedTableName="customer"/>
+    </changeSet>
+    <changeSet author="viachaslau.barysau" id="20201207-4">
+        <addForeignKeyConstraint baseColumnNames="customer_id"
+                                 baseTableName="write_off_act"
+                                 constraintName="fk_write_off_act_customer"
+                                 referencedColumnNames="id"
+                                 referencedTableName="customer"/>
+    </changeSet>
+</databaseChangeLog>

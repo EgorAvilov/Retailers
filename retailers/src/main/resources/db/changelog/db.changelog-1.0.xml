@@ -1,0 +1,680 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+    <changeSet author="viachaslau.barysau" id="20201030-1">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="address"/>
+            </not>
+        </preConditions>
+        <createTable tableName="address">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="address_pkey"/>
+            </column>
+            <column name="city" type="VARCHAR(255)"/>
+            <column name="first_address_line" type="VARCHAR(255)"/>
+            <column name="second_address_line" type="VARCHAR(255)"/>
+            <column name="state_id" type="BIGINT"/>
+        </createTable>
+        <rollback>
+            <dropTable tableName="address"/>
+        </rollback>
+    </changeSet>
+    <changeSet author="viachaslau.barysau" id="20201030-2">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="application_record"/>
+            </not>
+        </preConditions>
+        <createTable tableName="application_record">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="application_record_pkey"/>
+            </column>
+            <column name="amount" type="INTEGER"/>
+            <column name="cost" type="numeric(19, 2)"/>
+            <column name="product_id" type="BIGINT"/>
+        </createTable>
+        <rollback>
+            <dropTable tableName="application_record"/>
+        </rollback>
+    </changeSet>
+    <changeSet author="viachaslau.barysau" id="20201030-3">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="bill"/>
+            </not>
+        </preConditions>
+        <createTable tableName="bill">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="bill_pkey"/>
+            </column>
+            <column name="bill_number" type="INTEGER"/>
+            <column name="registration_date_time" type="TIMESTAMP WITHOUT TIME ZONE"/>
+            <column name="total_product_amount" type="INTEGER"/>
+            <column name="total_unit_number" type="INTEGER"/>
+            <column name="location_id" type="BIGINT"/>
+            <column name="manager_id" type="BIGINT"/>
+        </createTable>
+        <rollback>
+            <dropTable tableName="bill"/>
+        </rollback>
+    </changeSet>
+    <changeSet author="viachaslau.barysau" id="20201030-4">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="bill_record"/>
+            </not>
+        </preConditions>
+        <createTable tableName="bill_record">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="bill_record_pkey"/>
+            </column>
+            <column name="product_amount" type="INTEGER"/>
+            <column name="product_price" type="numeric(19, 2)"/>
+            <column name="product_id" type="BIGINT"/>
+            <column name="bill_id" type="BIGINT"/>
+        </createTable>
+        <rollback>
+            <dropTable tableName="bill_record"/>
+        </rollback>
+    </changeSet>
+    <changeSet author="viachaslau.barysau" id="20201030-5">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="category"/>
+            </not>
+        </preConditions>
+        <createTable tableName="category">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="category_pkey"/>
+            </column>
+            <column name="category_tax" type="numeric(19, 2)"/>
+            <column name="name" type="VARCHAR(255)"/>
+        </createTable>
+        <rollback>
+            <dropTable tableName="category"/>
+        </rollback>
+    </changeSet>
+    <changeSet author="viachaslau.barysau" id="20201030-6">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="customer"/>
+            </not>
+        </preConditions>
+        <createTable tableName="customer">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="customer_pkey"/>
+            </column>
+            <column name="customer_status" type="VARCHAR(255)"/>
+            <column name="admin_id" type="BIGINT"/>
+            <column name="director_id" type="BIGINT"/>
+        </createTable>
+        <rollback>
+            <dropTable tableName="customer"/>
+        </rollback>
+    </changeSet>
+    <changeSet author="viachaslau.barysau" id="20201030-7">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="inner_applications"/>
+            </not>
+        </preConditions>
+        <createTable tableName="inner_applications">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="inner_applications_pkey"/>
+            </column>
+            <column name="application_number" type="INTEGER"/>
+            <column name="application_status" type="VARCHAR(255)"/>
+            <column name="registration_date_time" type="TIMESTAMP WITHOUT TIME ZONE"/>
+            <column name="total_product_amount" type="INTEGER"/>
+            <column name="total_unit_number" type="INTEGER"/>
+            <column name="updating_date_time" type="TIMESTAMP WITHOUT TIME ZONE"/>
+            <column name="creator_id" type="BIGINT"/>
+            <column name="destination_location_id" type="BIGINT"/>
+            <column name="source_location_id" type="BIGINT"/>
+            <column name="updater_id" type="BIGINT"/>
+        </createTable>
+        <rollback>
+            <dropTable tableName="inner_applications"/>
+        </rollback>
+    </changeSet>
+    <changeSet author="viachaslau.barysau" id="20201030-8">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="users"/>
+            </not>
+        </preConditions>
+        <createTable tableName="users">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="users_pkey"/>
+            </column>
+            <column name="birthday" type="date"/>
+            <column name="email" type="VARCHAR(255)"/>
+            <column name="first_name" type="VARCHAR(255)"/>
+            <column name="last_name" type="VARCHAR(255)"/>
+            <column name="password" type="VARCHAR(255)"/>
+            <column name="user_status" type="VARCHAR(255)"/>
+            <column name="address_id" type="BIGINT"/>
+            <column name="customer_id" type="BIGINT"/>
+            <column name="location_id" type="BIGINT"/>
+        </createTable>
+        <rollback>
+            <dropTable tableName="users"/>
+        </rollback>
+    </changeSet>
+    <changeSet author="viachaslau.barysau" id="20201030-9">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="product"/>
+            </not>
+        </preConditions>
+        <createTable tableName="product">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="product_pkey"/>
+            </column>
+            <column name="label" type="VARCHAR(255)"/>
+            <column name="upc" type="INTEGER"/>
+            <column name="volume" type="INTEGER"/>
+            <column name="category_id" type="BIGINT"/>
+            <column name="customer_id" type="BIGINT"/>
+        </createTable>
+        <rollback>
+            <dropTable tableName="product"/>
+        </rollback>
+    </changeSet>
+    <changeSet author="viachaslau.barysau" id="20201030-10">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="inner_application_record"/>
+            </not>
+        </preConditions>
+        <createTable tableName="inner_application_record">
+            <column name="inner_application_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="application_record_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <rollback>
+            <dropTable tableName="inner_application_record"/>
+        </rollback>
+    </changeSet>
+    <changeSet author="viachaslau.barysau" id="20201030-11">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="supplier"/>
+            </not>
+        </preConditions>
+        <createTable tableName="supplier">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="supplier_pkey"/>
+            </column>
+            <column name="full_name" type="VARCHAR(255)"/>
+            <column name="identifier" type="VARCHAR(255)"/>
+            <column name="customer_id" type="BIGINT"/>
+        </createTable>
+        <rollback>
+            <dropTable tableName="supplier"/>
+        </rollback>
+    </changeSet>
+    <changeSet author="viachaslau.barysau" id="20201030-12">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="supplier_location"/>
+            </not>
+        </preConditions>
+        <createTable tableName="supplier_location">
+            <column name="supplier_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="location_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <rollback>
+            <dropTable tableName="supplier_location"/>
+        </rollback>
+    </changeSet>
+    <changeSet author="viachaslau.barysau" id="20201030-13">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="state"/>
+            </not>
+        </preConditions>
+        <createTable tableName="state">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="state_pkey"/>
+            </column>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="state_tax" type="numeric(19, 2)"/>
+        </createTable>
+        <rollback>
+            <dropTable tableName="state"/>
+        </rollback>
+    </changeSet>
+    <changeSet author="viachaslau.barysau" id="20201030-14">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="location_product"/>
+            </not>
+        </preConditions>
+        <createTable tableName="location_product">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="location_product_pkey"/>
+            </column>
+            <column name="amount" type="INTEGER"/>
+            <column name="cost" type="numeric(19, 2)"/>
+            <column name="price" type="numeric(19, 2)"/>
+            <column name="product_id" type="BIGINT"/>
+            <column name="location_id" type="BIGINT"/>
+        </createTable>
+        <rollback>
+            <dropTable tableName="location_product"/>
+        </rollback>
+    </changeSet>
+    <changeSet author="viachaslau.barysau" id="20201030-15">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="supplier_applications"/>
+            </not>
+        </preConditions>
+        <createTable tableName="supplier_applications">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="supplier_applications_pkey"/>
+            </column>
+            <column name="application_number" type="INTEGER"/>
+            <column name="application_status" type="VARCHAR(255)"/>
+            <column name="registration_date_time" type="TIMESTAMP WITHOUT TIME ZONE"/>
+            <column name="total_product_amount" type="INTEGER"/>
+            <column name="total_unit_number" type="INTEGER"/>
+            <column name="updating_date_time" type="TIMESTAMP WITHOUT TIME ZONE"/>
+            <column name="creator_id" type="BIGINT"/>
+            <column name="destination_location_id" type="BIGINT"/>
+            <column name="supplier_id" type="BIGINT"/>
+            <column name="updater_id" type="BIGINT"/>
+        </createTable>
+        <rollback>
+            <dropTable tableName="supplier_applications"/>
+        </rollback>
+    </changeSet>
+    <changeSet author="viachaslau.barysau" id="20201030-16">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="write_off_act"/>
+            </not>
+        </preConditions>
+        <createTable tableName="write_off_act">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="write_off_act_pkey"/>
+            </column>
+            <column name="act_date_time" type="TIMESTAMP WITHOUT TIME ZONE"/>
+            <column name="total_product_amount" type="INTEGER"/>
+            <column name="location_id" type="BIGINT"/>
+        </createTable>
+        <rollback>
+            <dropTable tableName="write_off_act"/>
+        </rollback>
+    </changeSet>
+    <changeSet author="viachaslau.barysau" id="20201030-17">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="write_off_record"/>
+            </not>
+        </preConditions>
+        <createTable tableName="write_off_record">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="write_off_record_pkey"/>
+            </column>
+            <column name="amount" type="INTEGER"/>
+            <column name="reason" type="VARCHAR(255)"/>
+            <column name="product_id" type="BIGINT"/>
+            <column name="write_off_act_id" type="BIGINT"/>
+        </createTable>
+        <rollback>
+            <dropTable tableName="write_off_record"/>
+        </rollback>
+    </changeSet>
+    <changeSet author="viachaslau.barysau" id="20201030-18">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="location"/>
+            </not>
+        </preConditions>
+        <createTable tableName="location">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="location_pkey"/>
+            </column>
+            <column name="available_capacity" type="INTEGER"/>
+            <column name="identifier" type="VARCHAR(255)"/>
+            <column name="location_tax" type="numeric(19, 2)"/>
+            <column name="location_type" type="VARCHAR(255)"/>
+            <column name="total_capacity" type="INTEGER"/>
+            <column name="address_id" type="BIGINT"/>
+            <column name="customer_id" type="BIGINT"/>
+        </createTable>
+        <rollback>
+            <dropTable tableName="location"/>
+        </rollback>
+    </changeSet>
+    <changeSet author="viachaslau.barysau" id="20201030-19">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="customer_category"/>
+            </not>
+        </preConditions>
+        <createTable tableName="customer_category">
+            <column name="customer_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="category_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <rollback>
+            <dropTable tableName="customer_category"/>
+        </rollback>
+    </changeSet>
+    <changeSet author="viachaslau.barysau" id="20201030-20">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="supplier_application_record"/>
+            </not>
+        </preConditions>
+        <createTable tableName="supplier_application_record">
+            <column name="supplier_application_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="application_record_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <rollback>
+            <dropTable tableName="supplier_application_record"/>
+        </rollback>
+    </changeSet>
+    <changeSet author="viachaslau.barysau" id="20201030-21">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="user_role"/>
+            </not>
+        </preConditions>
+        <createTable tableName="user_role">
+            <column name="user_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_role" type="VARCHAR(255)"/>
+        </createTable>
+        <rollback>
+            <dropTable tableName="user_role"/>
+        </rollback>
+    </changeSet>
+    <changeSet author="viachaslau.barysau" id="20201030-22">
+        <addForeignKeyConstraint baseColumnNames="address_id"
+                                 baseTableName="users"
+                                 constraintName="fk_address_users"
+                                 referencedColumnNames="id"
+                                 referencedTableName="address"/>
+    </changeSet>
+    <changeSet author="viachaslau.barysau" id="20201030-23">
+        <addForeignKeyConstraint baseColumnNames="address_id"
+                                 baseTableName="location"
+                                 constraintName="fk_address_location"
+                                 referencedColumnNames="id"
+                                 referencedTableName="address"/>
+    </changeSet>
+    <changeSet author="viachaslau.barysau" id="20201030-24">
+        <addForeignKeyConstraint baseColumnNames="application_record_id"
+                                 baseTableName="supplier_application_record"
+                                 constraintName="fk_supplier_application_record_application_record"
+                                 referencedColumnNames="id"
+                                 referencedTableName="application_record"/>
+    </changeSet>
+    <changeSet author="viachaslau.barysau" id="20201030-25">
+        <addForeignKeyConstraint baseColumnNames="application_record_id"
+                                 baseTableName="inner_application_record"
+                                 constraintName="fk_inner_application_record_application_record"
+                                 referencedColumnNames="id"
+                                 referencedTableName="application_record"/>
+    </changeSet>
+    <changeSet author="viachaslau.barysau" id="20201030-26">
+        <addForeignKeyConstraint baseColumnNames="bill_id"
+                                 baseTableName="bill_record"
+                                 constraintName="fk_bill_record_bill"
+                                 referencedColumnNames="id"
+                                 referencedTableName="bill"/>
+    </changeSet>
+    <changeSet author="viachaslau.barysau" id="20201030-27">
+        <addForeignKeyConstraint baseColumnNames="category_id"
+                                 baseTableName="product"
+                                 constraintName="fk_product_category"
+                                 referencedColumnNames="id"
+                                 referencedTableName="category"/>
+    </changeSet>
+    <changeSet author="viachaslau.barysau" id="20201030-28">
+        <addForeignKeyConstraint baseColumnNames="category_id"
+                                 baseTableName="customer_category"
+                                 constraintName="fk_customer_category_category"
+                                 referencedColumnNames="id"
+                                 referencedTableName="category"/>
+    </changeSet>
+    <changeSet author="viachaslau.barysau" id="20201030-29">
+        <addForeignKeyConstraint baseColumnNames="customer_id"
+                                 baseTableName="supplier"
+                                 constraintName="fk_supplier_customer"
+                                 referencedColumnNames="id"
+                                 referencedTableName="customer"/>
+    </changeSet>
+    <changeSet author="viachaslau.barysau" id="20201030-30">
+        <addForeignKeyConstraint baseColumnNames="customer_id"
+                                 baseTableName="users"
+                                 constraintName="fk_users_customer"
+                                 referencedColumnNames="id"
+                                 referencedTableName="customer"/>
+    </changeSet>
+    <changeSet author="viachaslau.barysau" id="20201030-31">
+        <addForeignKeyConstraint baseColumnNames="customer_id"
+                                 baseTableName="product"
+                                 constraintName="fk_product_customer"
+                                 referencedColumnNames="id"
+                                 referencedTableName="customer"/>
+    </changeSet>
+    <changeSet author="viachaslau.barysau" id="20201030-32">
+        <addForeignKeyConstraint baseColumnNames="customer_id"
+                                 baseTableName="location"
+                                 constraintName="fk_location_customer"
+                                 referencedColumnNames="id"
+                                 referencedTableName="customer"/>
+    </changeSet>
+    <changeSet author="viachaslau.barysau" id="20201030-33">
+        <addForeignKeyConstraint baseColumnNames="customer_id"
+                                 baseTableName="customer_category"
+                                 constraintName="fk_customer_category_customer"
+                                 referencedColumnNames="id"
+                                 referencedTableName="customer"/>
+    </changeSet>
+    <changeSet author="viachaslau.barysau" id="20201030-34">
+        <addForeignKeyConstraint baseColumnNames="inner_application_id"
+                                 baseTableName="inner_application_record"
+                                 constraintName="fk_inner_application_record_inner_applications"
+                                 referencedColumnNames="id"
+                                 referencedTableName="inner_applications"/>
+    </changeSet>
+    <changeSet author="viachaslau.barysau" id="20201030-35">
+        <addForeignKeyConstraint baseColumnNames="supplier_id"
+                                 baseTableName="supplier_location"
+                                 constraintName="fk_supplier_location_supplier"
+                                 referencedColumnNames="id"
+                                 referencedTableName="supplier"/>
+    </changeSet>
+    <changeSet author="viachaslau.barysau" id="20201030-36">
+        <addForeignKeyConstraint baseColumnNames="product_id"
+                                 baseTableName="location_product"
+                                 constraintName="fk_location_product_product"
+                                 referencedColumnNames="id"
+                                 referencedTableName="product"/>
+    </changeSet>
+    <changeSet author="viachaslau.barysau" id="20201030-37">
+        <addForeignKeyConstraint baseColumnNames="updater_id"
+                                 baseTableName="supplier_applications"
+                                 constraintName="fk_supplier_applications_updater"
+                                 referencedColumnNames="id"
+                                 referencedTableName="users"/>
+    </changeSet>
+    <changeSet author="viachaslau.barysau" id="20201030-38">
+        <addForeignKeyConstraint baseColumnNames="creator_id"
+                                 baseTableName="supplier_applications"
+                                 constraintName="fk_supplier_applications_creator"
+                                 referencedColumnNames="id"
+                                 referencedTableName="users"/>
+    </changeSet>
+    <changeSet author="viachaslau.barysau" id="20201030-39">
+        <addForeignKeyConstraint baseColumnNames="supplier_id"
+                                 baseTableName="supplier_applications"
+                                 constraintName="fk_supplier_applications_supplier"
+                                 referencedColumnNames="id"
+                                 referencedTableName="supplier"/>
+    </changeSet>
+    <changeSet author="viachaslau.barysau" id="20201030-40">
+        <addForeignKeyConstraint baseColumnNames="write_off_act_id"
+                                 baseTableName="write_off_record"
+                                 constraintName="fk_write_off_record_write_off_act"
+                                 referencedColumnNames="id"
+                                 referencedTableName="write_off_act"/>
+    </changeSet>
+    <changeSet author="viachaslau.barysau" id="20201030-41">
+        <addForeignKeyConstraint baseColumnNames="product_id"
+                                 baseTableName="write_off_record"
+                                 constraintName="fk_write_off_record_product"
+                                 referencedColumnNames="id"
+                                 referencedTableName="product"/>
+    </changeSet>
+    <changeSet author="viachaslau.barysau" id="20201030-42">
+        <addForeignKeyConstraint baseColumnNames="supplier_application_id"
+                                 baseTableName="supplier_application_record"
+                                 constraintName="fk_supplier_application_record_supplier_applications"
+                                 referencedColumnNames="id"
+                                 referencedTableName="supplier_applications"/>
+    </changeSet>
+    <changeSet author="viachaslau.barysau" id="20201030-43">
+        <addForeignKeyConstraint baseColumnNames="user_id"
+                                 baseTableName="user_role"
+                                 constraintName="fk_user_role_users"
+                                 referencedColumnNames="id"
+                                 referencedTableName="users"/>
+    </changeSet>
+    <changeSet author="viachaslau.barysau" id="20201030-44">
+        <addForeignKeyConstraint baseColumnNames="state_id"
+                                 baseTableName="address"
+                                 constraintName="fk_address_state"
+                                 referencedColumnNames="id"
+                                 referencedTableName="state"/>
+    </changeSet>
+    <changeSet author="viachaslau.barysau" id="20201030-45">
+        <addForeignKeyConstraint baseColumnNames="product_id"
+                                 baseTableName="application_record"
+                                 constraintName="fk_application_record_product"
+                                 referencedColumnNames="id"
+                                 referencedTableName="product"/>
+    </changeSet>
+    <changeSet author="viachaslau.barysau" id="20201030-46">
+        <addForeignKeyConstraint baseColumnNames="manager_id"
+                                 baseTableName="bill"
+                                 constraintName="fk_bill_users"
+                                 referencedColumnNames="id"
+                                 referencedTableName="users"/>
+    </changeSet>
+    <changeSet author="viachaslau.barysau" id="20201030-47">
+        <addForeignKeyConstraint baseColumnNames="location_id"
+                                 baseTableName="bill"
+                                 constraintName="fk_bill_location"
+                                 referencedColumnNames="id"
+                                 referencedTableName="location"/>
+    </changeSet>
+    <changeSet author="viachaslau.barysau" id="20201030-48">
+        <addForeignKeyConstraint baseColumnNames="product_id"
+                                 baseTableName="bill_record"
+                                 constraintName="fk_bill_record_product"
+                                 referencedColumnNames="id"
+                                 referencedTableName="product"/>
+    </changeSet>
+    <changeSet author="viachaslau.barysau" id="20201030-49">
+        <addForeignKeyConstraint baseColumnNames="director_id"
+                                 baseTableName="customer"
+                                 constraintName="fk_customer_director"
+                                 referencedColumnNames="id"
+                                 referencedTableName="users"/>
+    </changeSet>
+    <changeSet author="viachaslau.barysau" id="20201030-50">
+        <addForeignKeyConstraint baseColumnNames="admin_id"
+                                 baseTableName="customer"
+                                 constraintName="fk_customer_admin"
+                                 referencedColumnNames="id"
+                                 referencedTableName="users"/>
+    </changeSet>
+    <changeSet author="viachaslau.barysau" id="20201030-51">
+        <addForeignKeyConstraint baseColumnNames="updater_id"
+                                 baseTableName="inner_applications"
+                                 constraintName="fk_inner_applications_updater"
+                                 referencedColumnNames="id"
+                                 referencedTableName="users"/>
+    </changeSet>
+    <changeSet author="viachaslau.barysau" id="20201030-52">
+        <addForeignKeyConstraint baseColumnNames="source_location_id"
+                                 baseTableName="inner_applications"
+                                 constraintName="fk_inner_applications_source_location"
+                                 referencedColumnNames="id"
+                                 referencedTableName="location"/>
+    </changeSet>
+    <changeSet author="viachaslau.barysau" id="20201030-53">
+        <addForeignKeyConstraint baseColumnNames="creator_id"
+                                 baseTableName="inner_applications"
+                                 constraintName="fk_inner_applications_users"
+                                 referencedColumnNames="id"
+                                 referencedTableName="users"/>
+    </changeSet>
+    <changeSet author="viachaslau.barysau" id="20201030-55">
+        <addForeignKeyConstraint baseColumnNames="destination_location_id"
+                                 baseTableName="inner_applications"
+                                 constraintName="fk_inner_applications_destination_location"
+                                 referencedColumnNames="id"
+                                 referencedTableName="location"/>
+    </changeSet>
+    <changeSet author="viachaslau.barysau" id="20201030-56">
+        <addForeignKeyConstraint baseColumnNames="location_id"
+                                 baseTableName="users"
+                                 constraintName="fk_users_location"
+                                 referencedColumnNames="id"
+                                 referencedTableName="location"/>
+    </changeSet>
+    <changeSet author="viachaslau.barysau" id="20201030-57">
+        <addForeignKeyConstraint baseColumnNames="location_id"
+                                 baseTableName="supplier_location"
+                                 constraintName="fk_supplier_location_location"
+                                 referencedColumnNames="id"
+                                 referencedTableName="location"/>
+    </changeSet>
+    <changeSet author="viachaslau.barysau" id="20201030-58">
+        <addForeignKeyConstraint baseColumnNames="location_id"
+                                 baseTableName="location_product"
+                                 constraintName="fk_location_product_location"
+                                 referencedColumnNames="id"
+                                 referencedTableName="location"/>
+    </changeSet>
+    <changeSet author="viachaslau.barysau" id="20201030-59">
+        <addForeignKeyConstraint baseColumnNames="destination_location_id"
+                                 baseTableName="supplier_applications"
+                                 constraintName="fk_supplier_applications_destination_location"
+                                 referencedColumnNames="id"
+                                 referencedTableName="location"/>
+    </changeSet>
+    <changeSet author="viachaslau.barysau" id="20201030-60">
+        <addForeignKeyConstraint baseColumnNames="location_id"
+                                 baseTableName="write_off_act"
+                                 constraintName="fk_write_off_act_location"
+                                 referencedColumnNames="id"
+                                 referencedTableName="location"/>
+    </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,53 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+    <changeSet author="viachaslau.barysau" id="20201205-1">
+        <dropTable cascadeConstraints="true"
+                   catalogName="retailers"
+                   schemaName="public"
+                   tableName="supplier_location"/>
+    </changeSet>
+    <changeSet author="viachaslau.barysau" id="20201205-2">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="supplier_warehouse"/>
+            </not>
+        </preConditions>
+        <createTable tableName="supplier_warehouse">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="supplier_warehouse_pkey"/>
+            </column>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="supplier_id" type="BIGINT"/>
+            <column name="address_id" type="BIGINT"/>
+            <column name="customer_id" type="BIGINT"/>
+            <column name="deleted_status" type="VARCHAR(255)"/>
+        </createTable>
+        <rollback>
+            <dropTable tableName="supplier_warehouse"/>
+        </rollback>
+    </changeSet>
+    <changeSet author="viachaslau.barysau" id="20201205-3">
+        <addForeignKeyConstraint baseColumnNames="address_id"
+                                 baseTableName="supplier_warehouse"
+                                 constraintName="fk_supp_warehouse_address"
+                                 referencedColumnNames="id"
+                                 referencedTableName="address"/>
+    </changeSet>
+    <changeSet author="viachaslau.barysau" id="20201205-4">
+        <addForeignKeyConstraint baseColumnNames="customer_id"
+                                 baseTableName="supplier_warehouse"
+                                 constraintName="fk_supp_warehouse_address_customer"
+                                 referencedColumnNames="id"
+                                 referencedTableName="customer"/>
+    </changeSet>
+    <changeSet author="viachaslau.barysau" id="20201205-5">
+        <addForeignKeyConstraint baseColumnNames="supplier_id"
+                                 baseTableName="supplier_warehouse"
+                                 constraintName="fk_supp_warehouse_address_supplier"
+                                 referencedColumnNames="id"
+                                 referencedTableName="supplier"/>
+    </changeSet>
+</databaseChangeLog>

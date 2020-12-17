@@ -1,0 +1,29 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet author="viachaslau.barysau" id="20201214-4">
+        <dropColumn catalogName="retailers"
+                    schemaName="public"
+                    tableName="supplier_applications">
+            <column name="supplier_id"/>
+        </dropColumn>
+    </changeSet>
+    <changeSet author="viachaslau.barysau" id="20201214-5">
+        <addColumn catalogName="retailers"
+                   schemaName="public"
+                   tableName="supplier_applications">
+            <column name="supplier_warehouse_id"
+                    type="BIGINT"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="viachaslau.barysau" id="20201214-6">
+        <addForeignKeyConstraint baseColumnNames="supplier_warehouse_id"
+                                 baseTableName="supplier_applications"
+                                 constraintName="fk_application_supplier_warehouse"
+                                 referencedColumnNames="id"
+                                 referencedTableName="supplier_warehouse"/>
+    </changeSet>
+</databaseChangeLog>

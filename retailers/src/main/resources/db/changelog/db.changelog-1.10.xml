@@ -1,0 +1,21 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet author="viachaslau.barysau" id="20201214-1">
+        <dropColumn catalogName="retailers"
+                    schemaName="public"
+                    tableName="supplier_warehouse">
+            <column name="customer_id"/>
+        </dropColumn>
+    </changeSet>
+    <changeSet author="viachaslau.barysau" id="20201214-3">
+        <modifyDataType catalogName="retailers"
+                        columnName="identifier"
+                        newDataType="int"
+                        schemaName="public"
+                        tableName="supplier"/>
+    </changeSet>
+</databaseChangeLog>

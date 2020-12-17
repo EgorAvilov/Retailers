@@ -1,0 +1,14 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+    <changeSet author="viachaslau.barysau" id="20201108-1">
+        <dropColumn catalogName="retailers"
+                   schemaName= "public"
+                   tableName="customer" >
+            <column name="admin_id"/>
+            <column name="director_id"/>
+        </dropColumn>
+    </changeSet>
+</databaseChangeLog>
